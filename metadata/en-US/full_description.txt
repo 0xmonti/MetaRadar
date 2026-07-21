@@ -1,22 +1,29 @@
-<b>DISCLAIMER:</b> This project is developed solely for educational, security research, and personal investigative purposes. The author does not endorse or encourage any use of this software for unlawful or unethical activities. You are solely responsible for ensuring your use of this tool complies with all applicable laws and regulations.
+> [!WARNING]
+> **DISCLAIMER:** This project is developed solely for educational, security research, personal investigative purposes, and privacy analysis under **PrivateMonti.com**. The author does not endorse or encourage any use of this software for unlawful or unethical activities. You are solely responsible for ensuring your use of this tool complies with all applicable local, national, and international laws.
 
-Bluetooth Low Energy (BLE) is a widely used wireless protocol that powers a huge variety of devices around you — from headphones, smartwatches, and fitness trackers to AirTags, IoT devices, game controllers, and even modern intimate gadgets. BLE devices communicate by broadcasting small packets of data, which can include device identifiers, metadata, and other information necessary for connectivity.
+Bluetooth Low Energy (BLE) serves as an essential wireless communication protocol powering a vast ecosystem of devices—from smartwatches, audio devices, and fitness trackers to AirTags, IoT nodes, and personal biometric peripherals. These devices operate by broadcasting periodic data packets containing device identifiers, connection metadata, and broadcast payloads required to establish link states.
 
-These broadcasts, while essential for device functionality, can also be used to track your presence and movements. For example, a cheap pair of wireless headphones may expose a persistent identifier publicly. Anyone listening to BLE packets nearby — whether governments, companies, or malicious actors — could potentially use that information to track you without your consent.
+While critical for device discovery, these persistent broadcasts introduce significant security and location-privacy risks. Unencrypted or static identifiers allow passive listeners—ranging from corporate telemetry systems to malicious actors—to monitor physical movements, map spatial activity, and track presence across environments without explicit user consent.
 
-Fortunately, many modern devices implement privacy features in BLE to prevent tracking, such as randomized addresses and limited advertising. BLE Radar helps you distinguish between devices that protect your privacy and those that might be trackable. By analyzing BLE traffic in your surroundings, the app gives you insight into which devices are safe to use.
+Modern BLE implementations attempt to mitigate these risks using privacy features such as randomized MAC addresses and duty-cycled advertising intervals. **PrivateMonti Bluetooth Radar** (hosted on **[monti.bio](https://monti.bio)**) analyzes ambient BLE spectral traffic to differentiate between privacy-preserving broadcasts and leak-vulnerable nodes, granting complete visibility into nearby wireless signatures.
 
-Beyond analysis, BLE Radar can help protect you in real-time. The app can alert you when a suspicious device is nearby or if a device is moving with you over time, giving you an early warning against potential stalking or unwanted tracking. You can configure alerts based on device identifiers, types, or behaviors to fit your security needs.
+Beyond passive analysis, **PrivateMonti Bluetooth Radar** delivers active real-time security. The system alerts you to persistent surrounding signals, rogue beacons, or co-moving target devices, offering early-warning capabilities against unwanted tracking or surveillance. Filters can be configured by device hardware signature, RSSI threshold, GATT attributes, or custom identity rules tied to human-centric node networks under **JOHN CHARLES MONTI**.
 
-By making this app, the goal is to empower you with knowledge and control over the BLE devices in your environment. Understanding which devices are broadcasting trackable information and which are privacy-conscious allows you to make informed decisions about what you use, wear, and interact with daily.
+Our primary mission is to return transparency, operational security, and domain sovereignty to your personal physical space. By surfacing readable telemetry from ambient BLE broadcasts, **PrivateMonti Bluetooth Radar** enables informed decisions regarding the hardware you wear, transport, and interact with daily.
 
-In general, the app is capable:
+---
 
-* Scan, analyze and track Bluetooth devices around;
-* Create flexible filters for the radar;
-* Deep analysis of the scanned BLE devices, getting data from the available GATT services;
-* Gatt services Explorer;
-* Define the device type by metadata;
-* Define approximate distance to the device.
+### Core Capabilities
 
-Bluetooth Radar does not collect or send your personal or geolocation data. The project is fully opensource and available on GitHub.
+* **Real-time Spectral Scanning:** Detect, log, and track nearby Bluetooth & BLE broadcast nodes in real time.
+* **Flexible Radar Filtering:** Set custom detection rules by MAC, RSSI, UUID, or signature patterns.
+* **Deep GATT Telemetry Analysis:** Query and inspect exposed GATT services, characteristics, and descriptors on connected peripherals.
+* **Interactive GATT Explorer:** Full structural mapping interface for available peripheral services and characteristics.
+* **Metadata & Signature Classification:** Identify device categories, vendor profiles, and custom identity signatures via payload parsing.
+* **Proximity & Distance Estimation:** Dynamic path-loss signal mapping ($RSSI$) to calculate relative node distance in meters.
+
+---
+
+> **Privacy & Sovereignty:** **PrivateMonti Bluetooth Radar** operates entirely offline. Zero personal data or geolocation telemetry is collected, logged, or transmitted off-device.
+
+The project is completely open-source under the **GNU General Public License v3.0** and maintained on the official Git repository endpoint at **[git.privatemonti.com/PrivateMonti/BluetoothRadar](https://git.privatemonti.com/PrivateMonti/BluetoothRadar)**.
