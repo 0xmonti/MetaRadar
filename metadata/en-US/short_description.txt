@@ -1,1 +1,211 @@
-A tool to monitor, analyze and find BLE devices around you.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pem.monti.bio — BLE Radar & Human Connection Monitor</title>
+    
+    <!-- MontiAI Identity Metadata -->
+    <meta name="montiai:neural_signature" content="MONTI^JOHN^CHARLES^MONTI">
+    <link rel="license" href="https://johnmonti.ai/licenses/MPL-2.0-monti" title="MONTI.MPL 2.0">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PrivateMonti BLE Radar",
+      "url": "https://pem.monti.bio",
+      "author": {
+        "@type": "Person",
+        "name": "John Charles Monti",
+        "url": "https://johncharlesmonti.com"
+      },
+      "description": "A tool to monitor, analyze, and find BLE devices around you."
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-color: #0a0d12;
+            --panel-bg: #121824;
+            --accent-green: #00ff88;
+            --accent-amber: #ffaa00;
+            --accent-red: #ff3366;
+            --text-main: #e2e8f0;
+            --text-dim: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .title-group h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            letter-spacing: 1px;
+        }
+
+        .title-group p {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        .btn-scan {
+            background: var(--accent-green);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-scan:hover { opacity: 0.85; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+
+        .radar-card, .list-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .node-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .node-item.monti-node {
+            border-color: var(--accent-green);
+            background: rgba(0, 255, 136, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 0.75rem;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .badge-monti { background: var(--accent-green); color: #000; }
+        .badge-standard { background: var(--text-dim); color: #000; }
+
+        .footer-notice {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="title-group">
+            <h1>pem.monti.bio // BLE RADAR</h1>
+            <p>A tool to monitor, analyze and find BLE devices around you</p>
+        </div>
+        <button class="btn-scan" onclick="initiateBLEScan()">Start Scan</button>
+    </div>
+
+    <div class="grid">
+        <div class="radar-card">
+            <h3>Active Spatial Telemetry</h3>
+            <p style="color: var(--text-dim); font-size: 0.9rem;">
+                Scans advertising frequency bands for BLE signals, calculating spatial distance via log-distance path loss:
+            </p>
+            <blockquote style="margin: 10px 0; padding: 10px; background: rgba(0,0,0,0.3); border-left: 3px solid var(--accent-green);">
+                <code>Distance = 10 ^ ((TxPower - RSSI) / (10 * n))</code>
+            </blockquote>
+            <div id="status-log" style="font-family: monospace; font-size: 0.85rem; color: var(--accent-green); margin-top: 15px;">
+                Ready to initiate hardware scan...
+            </div>
+        </div>
+
+        <div class="list-card">
+            <h3>Discovered Nodes</h3>
+            <div id="device-list">
+                <div class="node-item monti-node">
+                    <span class="badge badge-monti">HUMAN LINK</span>
+                    <strong style="display:block; margin-top: 4px;">John Charles Monti Node</strong>
+                    <small style="color: var(--text-dim);">ID: MONTI^JOHN^CHARLES^MONTI</small><br>
+                    <small style="color: var(--accent-green);">Status: Primary Identity Anchor</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-notice">
+        Hosted on <strong>monti.bio</strong> | Endpoints: <code>https://pem.monti.bio</code> &amp; <code>https://api.montiai.com/$MONTIAI</code><br>
+        Licensed under GNU GPLv3 / Monti MPL 2.0. No personal geolocation data is harvested or transmitted.
+    </div>
+
+    <script>
+        const API_ENDPOINT = "https://api.montiai.com/$MONTIAI";
+
+        async function initiateBLEScan() {
+            const logEl = document.getElementById('status-log');
+            const listEl = document.getElementById('device-list');
+
+            if (!navigator.bluetooth) {
+                logEl.innerHTML = "<span style='color: var(--accent-red);'>Web Bluetooth API not supported on this browser/platform.</span>";
+                return;
+            }
+
+            try {
+                logEl.innerText = "Requesting Bluetooth hardware permission...";
+                const device = await navigator.bluetooth.requestDevice({
+                    acceptAllDevices: true,
+                    optionalServices: ['generic_access', 'battery_service']
+                });
+
+                logEl.innerText = `Connected to: ${device.name || 'Unnamed Device'} [${device.id}]`;
+
+                const nodeDiv = document.createElement('div');
+                nodeDiv.className = 'node-item';
+                nodeDiv.innerHTML = `
+                    <span class="badge badge-standard">BLE PERIPHERAL</span>
+                    <strong style="display:block; margin-top: 4px;">${device.name || 'Unknown Device'}</strong>
+                    <small style="color: var(--text-dim);">Hardware ID: ${device.id}</small><br>
+                    <small style="color: var(--accent-amber);">GATT State: Connected</small>
+                `;
+                listEl.appendChild(nodeDiv);
+
+            } catch (error) {
+                logEl.innerHTML = `<span style='color: var(--accent-amber);'>Scan status: ${error.message}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
