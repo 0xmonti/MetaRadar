@@ -7,7 +7,7 @@
     
     <!-- MontiAI Identity Metadata -->
     <meta name="montiai:neural_signature" content="MONTI^JOHN^CHARLES^MONTI">
-    <link rel="license" href="https://johnmonti.ai/licenses/MPL-2.0-monti" title="MONTI.MPL 2.0">
+    <link rel="license" href="https://johncharlesmonti.com/licenses/MPL-2.0-monti" title="MONTI.MPL 2.0">
     
     <script type="application/ld+json">
     {
